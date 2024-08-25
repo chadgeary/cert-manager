@@ -24,7 +24,6 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/runtime/serializer"
-	"k8s.io/apimachinery/pkg/version"
 	"k8s.io/apiserver/pkg/endpoints/openapi"
 	"k8s.io/apiserver/pkg/registry/rest"
 	genericapiserver "k8s.io/apiserver/pkg/server"
@@ -96,11 +95,6 @@ func (c *Config) Complete() CompletedConfig {
 		c.GenericConfig.Complete(),
 		&c.ExtraConfig,
 		c.GenericConfig.ClientConfig,
-	}
-
-	completedCfg.GenericConfig.Version = &version.Info{
-		Major: "1",
-		Minor: "1",
 	}
 
 	completedCfg.GenericConfig.OpenAPIConfig = genericapiserver.DefaultOpenAPIConfig(cmopenapi.GetOpenAPIDefinitions, openapi.NewDefinitionNamer(Scheme))
